@@ -5,13 +5,25 @@
   --color-purple-400: #a78bfa;
 }
 
+html {
+  font-size: 18px; /* Bumps up the base size globally, making all fonts a bit bigger */
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: #0a0a0a;
   color: #f5f5f5;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  letter-spacing: 0.5px;
+}
+
+.font-cursive, .text-purple-400, .text-purple-500 {
+  font-family: 'Caveat', cursive;
+  font-size: 1.35em;
+  font-weight: 600;
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
 }
 
 /* Custom Scrollbar */

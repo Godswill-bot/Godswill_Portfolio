@@ -1,6 +1,11 @@
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Code2, Cpu, BrainCircuit, Wrench, ExternalLink, ChevronDown, Phone, FileText, GraduationCap, Briefcase, LayoutTemplate , Menu, Camera, Store, Search, ShoppingCart, Shirt, Play, Globe, Mic} from 'lucide-react';
+import { ReactNode, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Mail, Code2, Cpu, BrainCircuit, Wrench, ExternalLink, ChevronDown, Phone, FileText, GraduationCap, Briefcase, LayoutTemplate , Menu, Store, Search, ShoppingCart, Globe, X} from 'lucide-react';
+import myPhoto from './photo_2026-03-27_23-20-51.jpg';
+import lensImg from './WEB 1/42f581180842195.6511cf030827b.png';
+import vendexImg from './web 2/221375003-d96b0b79-f644-4349-8642-15f1bbd54b6e.png';
+import clothingImg from './web 3/b2d270178866255.64ef6fea1d0fa.jpg';
+import voiceTextImg from './voice text translator/mediaio-online-voice-to-text-converter.jpg';
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -42,7 +47,7 @@ const NextSectionArrow = ({ targetId }: { targetId: string }) => {
   };
   return (
     <div className="flex justify-center mt-12 mb-4 w-full">
-      <a href={`#${targetId}`} onClick={handleClick} className="text-neutral-600 hover:text-purple-400 transition-colors animate-bounce p-4 cursor-pointer">
+      <a href={`#${targetId}`} onClick={handleClick} title={`Scroll to ${targetId}`} className="text-neutral-600 hover:text-purple-400 transition-colors animate-bounce p-4 cursor-pointer">
         <ChevronDown size={28} />
       </a>
     </div>
@@ -50,6 +55,8 @@ const NextSectionArrow = ({ targetId }: { targetId: string }) => {
 };
 
 function App() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -85,7 +92,7 @@ function App() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-purple-400 font-medium mb-4 tracking-wide">Hi, my name is</h2>
+            <h2 className="text-purple-400 font-medium mb-4 tracking-wide font-cursive text-2xl">Hi, my name is</h2>
             <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
               Godswill Nwafor.
             </h1>
@@ -118,7 +125,7 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior:'smooth'}); }} className="cursor-pointer hover:text-purple-400 transition-colors block"><ChevronDown size={28} /></a>
+            <a href="#about" title="Scroll to about section" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({behavior:'smooth'}); }} className="cursor-pointer hover:text-purple-400 transition-colors block"><ChevronDown size={28} /></a>
           </motion.div>
         </section>
 
@@ -143,7 +150,7 @@ function App() {
                 <span className="text-neutral-500 text-sm">Happy Clients</span>
               </div>
               <div className="flex flex-col items-center md:items-start text-center md:text-left text-neutral-400">
-                <span className="font-medium mb-1 whitespace-nowrap">Based in Abeokuta, NG</span>
+                <span className="font-medium mb-1 whitespace-nowrap">Based in LAGOS</span>
                 <span className="text-neutral-500 text-sm">Available Worldwide</span>
               </div>
             </div>
@@ -164,10 +171,10 @@ function App() {
                 From creating sleek frontend interfaces to designing robust backend architectures, I possess advanced knowledge in using AI to solve real-world problems. I also have professional skills in IT Service Management, networking, and IT operations, allowing me to build complete, efficient digital experiences.
               </p>
             </div>
-            <div className="relative group">
+            <div className="relative group h-full">
               <div className="absolute inset-0 bg-purple-500 rounded-xl translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform"></div>
-              <div className="relative bg-neutral-900 border border-neutral-800 p-8 rounded-xl h-full flex items-center justify-center">
-                <BrainCircuit className="w-32 h-32 text-purple-400 opacity-50" />
+              <div className="relative bg-neutral-900 border border-neutral-800 rounded-xl h-full flex items-center justify-center overflow-hidden">
+                <img src={myPhoto} alt="Godswill Nwafor" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -260,13 +267,8 @@ function App() {
                   <div className="flex gap-2 font-mono font-semibold"><span>Lens.</span></div>
                   <div className="flex gap-3"><Menu size={16}/></div>
                 </div>
-                <div className="flex-1 grid grid-cols-3 gap-2 group-hover:bg-neutral-900 transition-colors">
-                  <div className="col-span-2 row-span-2 bg-neutral-800/50 rounded-lg flex items-center justify-center border border-neutral-700/50 relative overflow-hidden">
-                     <div className="absolute inset-0 bg-linear-to-bl from-purple-500/10 to-transparent"></div>
-                    <Camera className="text-neutral-500 w-12 h-12 group-hover:text-purple-400 transition-colors" />
-                  </div>
-                  <div className="bg-neutral-800/30 rounded-lg border border-neutral-800"></div>
-                  <div className="bg-neutral-800/30 rounded-lg border border-neutral-800"></div>
+                <div className="flex-1 relative rounded-lg border border-neutral-800 overflow-hidden group-hover:border-purple-500/30 transition-colors">
+                  <img src={lensImg} alt="Lens Photography" className="w-full h-full object-cover object-top cursor-pointer" onClick={() => setSelectedImage(lensImg)} />
                 </div>
               </div>
               <div className="p-6 flex-1 flex flex-col">
@@ -299,15 +301,8 @@ function App() {
                     <Search size={12}/>
                   </div>
                 </div>
-                <div className="flex-1 flex gap-4">
-                  <div className="w-1/3 bg-neutral-900 rounded-lg border border-neutral-800/50 p-2 flex flex-col gap-2">
-                     <div className="h-2 bg-neutral-700 rounded w-full"></div>
-                     <div className="h-2 bg-neutral-800 rounded w-3/4"></div>
-                     <div className="h-2 bg-neutral-800 rounded w-5/6"></div>
-                  </div>
-                  <div className="flex-1 bg-neutral-800/20 rounded-lg border border-neutral-800/50 p-4 flex flex-col gap-3 group-hover:bg-neutral-800/40 transition-colors">
-                    <div className="h-12 bg-neutral-800/60 rounded flex items-center justify-center"></div>
-                  </div>
+                <div className="flex-1 relative rounded-lg border border-neutral-800 overflow-hidden group-hover:border-purple-500/30 transition-colors">
+                  <img src={vendexImg} alt="Vendex Platform" className="w-full h-full object-cover object-top cursor-pointer" onClick={() => setSelectedImage(vendexImg)} />
                 </div>
               </div>
               <div className="p-6 flex-1 flex flex-col">
@@ -338,15 +333,8 @@ function App() {
                     <ShoppingCart size={14}/>
                   </div>
                 </div>
-                <div className="flex-1 grid grid-cols-2 gap-3">
-                  <div className="bg-neutral-800/20 rounded-lg border border-neutral-800 relative overflow-hidden flex items-center justify-center group-hover:border-purple-500/30 transition-colors">
-                    <Shirt className="text-neutral-600 w-10 h-10 group-hover:text-purple-400 transition-colors" />
-                  </div>
-                  <div className="bg-neutral-800/20 rounded-lg border border-neutral-800 relative overflow-hidden flex items-center justify-center group-hover:border-purple-500/30 transition-colors">
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                      <Play className="text-neutral-400 w-8 h-8 group-hover:text-white transition-colors" fill="currentColor"/>
-                    </div>
-                  </div>
+                <div className="flex-1 relative rounded-lg border border-neutral-800 overflow-hidden group-hover:border-purple-500/30 transition-colors">
+                  <img src={clothingImg} alt="Clothing Shop" className="w-full h-full object-cover object-top cursor-pointer" onClick={() => setSelectedImage(clothingImg)} />
                 </div>
               </div>
               <div className="p-6 flex-1 flex flex-col">
@@ -373,14 +361,8 @@ function App() {
                 <div className="flex justify-center items-center mb-6 text-neutral-500 pt-2 pb-2 border-b border-neutral-800/50">
                   <Globe size={18} className="text-purple-500 mr-2" /> <span className="text-sm font-semibold tracking-wide">VoiceText</span>
                 </div>
-                <div className="flex-1 flex flex-col items-center justify-center gap-4">
-                   <div className="w-16 h-16 rounded-full bg-purple-600/10 border border-purple-500/30 flex items-center justify-center relative">
-                     <div className="absolute inset-0 rounded-full border border-purple-500/50 group-hover:animate-ping"></div>
-                     <Mic className="text-purple-400 w-6 h-6"/>
-                   </div>
-                   <div className="w-3/4 h-8 bg-neutral-900 rounded-lg p-2 flex flex-col gap-1 border border-neutral-800">
-                     <div className="h-2 bg-neutral-700/80 rounded w-full animate-pulse"></div>
-                   </div>
+                <div className="flex-1 relative rounded-lg border border-neutral-800 overflow-hidden group-hover:border-purple-500/30 transition-colors">
+                  <img src={voiceTextImg} alt="VoiceText Translator" className="w-full h-full object-cover object-top cursor-pointer" onClick={() => setSelectedImage(voiceTextImg)} />
                 </div>
               </div>
               <div className="p-6 flex-1 flex flex-col">
@@ -481,6 +463,40 @@ function App() {
         <p>Built with React, Tailwind & Framer Motion</p>
         <p className="mt-1">© 2026 Godswill Nwafor.</p>
       </footer>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 p-4 sm:p-8 cursor-pointer"
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              title="Close Image Modal"
+              className="absolute top-6 right-6 text-white hover:text-purple-400 transition-colors z-50 bg-black/50 p-2 rounded-full"
+            >
+              <X size={24} />
+            </button>
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-7xl max-h-full flex items-center justify-center cursor-default"
+            >
+              <img
+                src={selectedImage}
+                alt="Project Fullscreen"
+                className="max-w-full max-h-[90vh] object-contain rounded-xl border border-neutral-800 shadow-2xl"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
